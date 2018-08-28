@@ -1,0 +1,38 @@
+# kubetpl:syntax:$
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: $DEPLOYMENT_NAME
+  namespace: $STAGE
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: $APP_LABEL
+  template:
+    spec:
+      containers:
+        - name: $CONTAINER_NAME
+          image: redis:$DOCKER_TAG
+          ports:
+            containerPort: 6379
+            protocol: TCP
+            name: $PORT_NAME
+    metadata:
+      labels:
+        app: $APP_LABEL
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: $SERVICE_NAME
+  namespace: $STAGE
+spec:
+  type: NodePort
+  ports:
+    - port: $SERVICE_PORT
+      targetPort: 6379
+      protocol: TCP
+  selector: $APP_LABEL
