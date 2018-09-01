@@ -21,8 +21,8 @@ jobs:
           working_directory: ~/examples/kubetpl-templates
           command: |
             kubetpl render -i base.env resources.yaml \
-              -s DOCKER_TAG=$CIRCLE_SHA1 \
-              | kubectl apply -f -
+              -s DOCKER_TAG=$CIRCLE_SHA1
+            #  | kubectl apply -f -
 
 workflows:
   version: 2
