@@ -1,6 +1,8 @@
 version: 2
 jobs:
-  deploy:
+  kubetpl-circleci-deploy:
+    workdir: ~/examples
+
     docker:
       - image: marcdufresne/kubetpl-base:0.7.1
 
@@ -9,13 +11,21 @@ jobs:
 
       - run:
           name: Create Kube config file
+          workdir: ~/examples/kubetpl-templates
           command: |
             mkdir -p ~/.kube/
             echo -n $KUBE_CONFIG | base64 -d >> ~/.kube/config
 
       - run:
           name: Deploy to Kubernetes
+          workdir: ~/examples/kubetpl-templates
           command: |
             kubetpl render -i base.env resources.yaml \
               -s DOCKER_TAG=$CIRCLE_SHA1 \
               | kubectl apply -f -
+
+workflows:
+  version: 2
+  workflow:
+    kubetpl-circleci-deploy:
+      - kubetpl-circleci-deploy

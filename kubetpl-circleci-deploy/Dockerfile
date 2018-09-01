@@ -7,6 +7,10 @@ RUN apt update \
     && apt -y --no-install-recommends install \
         ca-certificates \
         curl \
+        git \
+        gzip \
+        ssh \
+        tar \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl \
