@@ -17,7 +17,7 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_
     && chmod +x kubectl \
     && mv kubectl /usr/local/bin/
 
-RUN curl -o kubetpl \
+RUN curl -o kubetpl -sSL \
         https://github.com/shyiko/kubetpl/releases/download/$KUBETPL_VERSION/kubetpl-$KUBETPL_VERSION-linux-amd64 \
     && chmod +x kubetpl \
     && mv kubetpl /usr/local/bin/
