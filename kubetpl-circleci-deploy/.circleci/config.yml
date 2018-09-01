@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  deploy:
+    docker:
+      - image: marcdufresne/kubetpl-base:0.7.1
+
+    steps:
+      - checkout
+
+      - run:
+          name: Create Kube config file
+          command: |
+            mkdir -p ~/.kube/
+            echo -n $KUBE_CONFIG | base64 -d >> ~/.kube/config
+
+      - run:
+          name: Deploy to Kubernetes
+          command: |
+            kubetpl render -i base.env resources.yaml \
+              -s DOCKER_TAG=$CIRCLE_SHA1 \
+              | kubectl apply -f -
