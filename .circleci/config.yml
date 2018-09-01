@@ -26,6 +26,6 @@ jobs:
 
 workflows:
   version: 2
-  workflow:
-    kubetpl-circleci-deploy:
+  kubetpl-circleci-deploy:
+    jobs:
       - kubetpl-circleci-deploy
