@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "example-app"
+version = "0.1.0"
+description = "Example App to Demo Poetry"
+authors = ["MarcDufresne <marc.andre.dufresne@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "*"
+click = "^6.7"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.5"
